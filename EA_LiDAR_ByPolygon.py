@@ -91,9 +91,9 @@ if __name__ == '__main__':
         formattedTileName = tileRef + tileEnd
 
         # URL for JSON file
-        jsonUrl = "http://www.geostore.com/environment-agency/rest/product/OS_GB_10KM/" + tileRef + "?catalogName=Survey"
+        jsonUrl="http://www.geostore.com/environment-agency/rest/product/OS_GB_10KM/%s?catalogName=Survey" % (tileRef)
         # base url for download
-        baseUrl = "http://www.geostore.com/environment-agency/rest/product/download/"
+        baseUrl="http://www.geostore.com/environment-agency/rest/product/download/"
 
         # get the json catalog listing
         sDirectoryJson = requests.get(jsonUrl)
