@@ -11,7 +11,7 @@
 #               3. Downloads the appropriate data 
 # 
 # Date created: 20180421
-# Last updated: 20180423 AHO added multiprocessing
+# Last updated: 20180423 ANH added multiprocessing
 #------------------------------------------------------------------------------
 
 import fiona
