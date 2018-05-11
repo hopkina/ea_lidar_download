@@ -23,7 +23,7 @@ import multiprocessing as mp
 
 def mp_worker(downloadurl, outpath):
     # worker process for download
-    print("Downloading from: "+ downloadurl)
+    print("Downloading from: %s" % (downloadurl))
 
     # grab it
     try:
@@ -34,7 +34,7 @@ def mp_worker(downloadurl, outpath):
     except urllib.error.URLError as err:
         print("URL Error:", err, outpath)
 
-    print ("Download complete: " + outpath)
+    print ("Download complete: %s" % (outpath))
 
 def mp_handler(dlInfoList):
     # setup the pool and pass to worker processes
