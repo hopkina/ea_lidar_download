@@ -11,7 +11,7 @@
 #               3. Downloads the appropriate data 
 # 
 # Date created: 20180421
-# Last updated: 20180423 ANH added multiprocessing
+# Last updated: 20180517 ANH
 #------------------------------------------------------------------------------
 
 import fiona
@@ -23,7 +23,7 @@ import multiprocessing as mp
 
 def mp_worker(downloadurl, outpath):
     # worker process for download
-    print("Downloading from: %s" % (downloadurl))
+    print ("Downloading from: %s" % (downloadurl))
 
     # grab it
     try:
@@ -45,7 +45,8 @@ if __name__ == '__main__':
 
     # setup 
     aoishpfile = "C:\\gisdata\\test\\wl_ward.shp" # aoi shapefile
-    tileshpfile = "C:\\gisdata\\OSGB_Grids\\Shapefile\\OSGB_Grid_5km.shp" # tile shapefile
+    # tile shapefile
+    tileshpfile = "C:\\gisdata\\OSGB_Grids\\Shapefile\\OSGB_Grid_5km.shp" 
     outFolder = "c:\\stuff\\" # path to folder for downloads
     productName = "LIDAR-DTM-1M-ENGLAND-EA" # specify product
 
@@ -86,14 +87,15 @@ if __name__ == '__main__':
     for tile in tileList:
         # get the first four characters for use in the url in the JSON file
         tileRef = tile[:4]
-        # change the last two characters to lower case to match JSON format for the full file name
+        # change the last two characters to lower case to match JSON format for
+        # the full file name
         tileEnd = tile[4:].lower()
         formattedTileName = tileRef + tileEnd
 
         # URL for JSON file
-        jsonUrl="http://www.geostore.com/environment-agency/rest/product/OS_GB_10KM/%s?catalogName=Survey" % (tileRef)
+        jsonUrl = "http://www.geostore.com/environment-agency/rest/product/OS_GB_10KM/%s?catalogName=Survey" % (tileRef)
         # base url for download
-        baseUrl="http://www.geostore.com/environment-agency/rest/product/download/"
+        baseUrl = "http://www.geostore.com/environment-agency/rest/product/download/"
 
         # get the json catalog listing
         sDirectoryJson = requests.get(jsonUrl)
@@ -116,7 +118,8 @@ if __name__ == '__main__':
                     # build the output path for the zip file
                     outpath = outFolder + fileName
 
-                    # build list of tuples to pass into download using multiprocessing
+                    # build list of tuples to pass into download using 
+                    # multiprocessing
                     dlInfo = (downloadurl, outpath)
                     dlInfoList.append(dlInfo)
 
