@@ -23,7 +23,8 @@ import multiprocessing as mp
 
 def mp_worker(downloadurl, outpath):
     # worker process for download
-    print ("Downloading from: %s" % (downloadurl))
+    #print ("Downloading from: %s" % (downloadurl))
+    print (f"Downloading from: {downloadurl}")
 
     # grab it
     try:
@@ -34,7 +35,7 @@ def mp_worker(downloadurl, outpath):
     except urllib.error.URLError as err:
         print("URL Error:", err, outpath)
 
-    print ("Download complete: %s" % (outpath))
+    print (f"Download complete: {outpath}")
 
 def mp_handler(dlInfoList):
     # setup the pool and pass to worker processes
@@ -93,7 +94,7 @@ if __name__ == '__main__':
         formattedTileName = tileRef + tileEnd
 
         # URL for JSON file
-        jsonUrl = "http://www.geostore.com/environment-agency/rest/product/OS_GB_10KM/%s?catalogName=Survey" % (tileRef)
+        jsonUrl = f"http://www.geostore.com/environment-agency/rest/product/OS_GB_10KM/{tileRef}?catalogName=Survey"
         # base url for download
         baseUrl = "http://www.geostore.com/environment-agency/rest/product/download/"
 
