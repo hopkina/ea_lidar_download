@@ -11,7 +11,7 @@
 #               3. Downloads the appropriate data 
 # 
 # Date created: 20180421
-# Last updated: 20180517 ANH
+# Last updated: 20180522 ANH
 #------------------------------------------------------------------------------
 
 import fiona
@@ -23,7 +23,6 @@ import multiprocessing as mp
 
 def mp_worker(downloadurl, outpath):
     # worker process for download
-    #print ("Downloading from: %s" % (downloadurl))
     print (f"Downloading from: {downloadurl}")
 
     # grab it
