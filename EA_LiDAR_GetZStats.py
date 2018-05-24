@@ -39,18 +39,14 @@ stats = zonal_stats(inshp,
                     livrt,
                     geojson_out=True)
 
-i = 0
-
 # write out to shapefile
 with fiona.open(outshp, 
                 'w', 
                 'ESRI Shapefile', 
                 output_schema, 
                 crs=input.crs) as output:
-    for feat in stats: 
+    for i, feat in enumerate(stats): 
         fproperties = stats[i]['properties']
         fgeometry = stats[i]['geometry']
 
         output.write({'properties': fproperties,'geometry': fgeometry})
-
-        i +=1
