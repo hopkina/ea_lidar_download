@@ -49,12 +49,7 @@ if __name__ == '__main__':
     tileshpfile = "C:\\gisdata\\OSGB_Grids\\Shapefile\\OSGB_Grid_5km.shp" 
     outFolder = "c:\\stuff\\" # path to folder for downloads
     productName = "LIDAR-DTM-1M-ENGLAND-EA" # specify product
-
-    # get the area of interest polygon
-    aoipolys = fiona.open(aoishpfile)
-
-    # get the tile polygons
-    tilepolys = fiona.open(tileshpfile)
+    #productName = "LIDAR-DSM-1M-ENGLAND-EA" # specify product
 
     # list for intersecting tile names
     tileList = []
@@ -62,27 +57,31 @@ if __name__ == '__main__':
     # list for download info
     dlInfoList = []
 
-    # build tile index
-    idx = index.Index()
-    for tile in tilepolys:
-        fid = int(tile['id'])
-        tgeom = shape(tile['geometry'])
-        idx.insert(fid, tgeom.bounds)
+    # get the tile polygons
+    with fiona.open(tileshpfile) as tilepolys:
+        # build tile index
+        idx = index.Index()
+        for tile in tilepolys:
+            fid = int(tile['id'])
+            tgeom = shape(tile['geometry'])
+            idx.insert(fid, tgeom.bounds)
+    
+        # get the area of interest polygon
+        with fiona.open(aoishpfile) as aoipolys:
+            # loop through the area of interest polys
+            for aoi in aoipolys:
+                aoigeom = shape(aoi['geometry'])
+                # intersect using index first
+                for fid in list(idx.intersection(aoigeom.bounds)):
+                    tpoly = tilepolys[fid]
+                    tgeom = shape(tpoly['geometry'])
+                    # then using actual geometry
+                    if tgeom.intersects(aoigeom):
+                        # get the intersecting tile names
+                        tid = tpoly['properties']['TILE_NAME']
 
-    # loop through the area of interest polys
-    for aoi in aoipolys:
-        aoigeom = shape(aoi['geometry'])
-        # intersect using index first
-        for fid in list(idx.intersection(aoigeom.bounds)):
-            tpoly = tilepolys[fid]
-            tgeom = shape(tpoly['geometry'])
-            # then using actual geometry
-            if tgeom.intersects(aoigeom):
-                # get the intersecting tile names
-                tid = tpoly['properties']['TILE_NAME']
-
-                # build list of intersecting tiles
-                tileList.append(tid)
+                        # build list of intersecting tiles
+                        tileList.append(tid)
             
     for tile in tileList:
         # get the first four characters for use in the url in the JSON file
