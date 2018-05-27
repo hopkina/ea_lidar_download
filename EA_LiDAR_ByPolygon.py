@@ -82,12 +82,13 @@ if __name__ == '__main__':
 
                         # build list of intersecting tiles
                         tileList.append(tid)
-            
+
+    # loop through intersecting tiles        
     for tile in tileList:
         # get the first four characters for use in the url in the JSON file
         tileRef = tile[:4]
-        # change the last two characters to lower case to match JSON format for
-        # the full file name
+        # change the last two characters to lower case to match JSON format
+        # for the full file name
         tileEnd = tile[4:].lower()
         formattedTileName = tileRef + tileEnd
 
