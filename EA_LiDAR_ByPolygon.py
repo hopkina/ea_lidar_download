@@ -1,10 +1,10 @@
-#------------------------------------------------------------------------------
+#--------------------------------------------------------------------------
 # Script name:  EA_LiDAR_ByPolygon
 #
 # Description:  To download EA LiDAR using a polygon to specify the area of 
 #               interest.
-#               1. Intersects area of interest with OS grid tiles to identify 
-#                  those to download.
+#               1. Intersects area of interest with OS grid tiles to 
+#                  identify those to download.
 #                  An index is used to facilitate this.
 #               2. Queries the EA website to return a JSON listing of 
 #                  products for each tile
@@ -12,7 +12,7 @@
 # 
 # Date created: 20180421
 # Last updated: 20180522 ANH
-#------------------------------------------------------------------------------
+#--------------------------------------------------------------------------
 
 import fiona
 from shapely.geometry import shape
@@ -41,7 +41,7 @@ def mp_handler(dlInfoList):
     p = mp.Pool()
     p.starmap(mp_worker, dlInfoList)
 
-if __name__ == '__main__':    
+def main():    
 
     # setup 
     aoishpfile = "C:\\gisdata\\test\\wl_ward.shp" # aoi shapefile
@@ -127,3 +127,6 @@ if __name__ == '__main__':
     mp_handler(dlInfoList)
 
     print ("Process complete.")
+
+if __name__ == '__main__':
+    main()
