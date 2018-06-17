@@ -18,7 +18,6 @@ import requests
 import urllib
 import multiprocessing as mp
 import os
-import argparse
 
 
 def mp_worker(downloadurl, outpath):
