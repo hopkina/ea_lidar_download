@@ -1,6 +1,6 @@
 # ea_lidar_download
 
-Python module to download EA Lidar from
+Python script to download EA Lidar from
 https://environment.data.gov.uk/ds/survey/#/survey
 using either a tile id or a polygon to specify the area of interest.
 

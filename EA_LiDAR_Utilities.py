@@ -200,7 +200,7 @@ def getlidarbyaoi(aoishapefile, tileshapefile, product, outputfolder):
         return ("Output folder doesn't exist")
 
     # use polygon to find tile ids
-    tilelist = gettileids(tileshapefile, aoishapefile)
+    tilelist = gettileids(aoishapefile, tileshapefile)
 
     # get the dataset urls
     dlinfolist = gettileurls(tilelist, product, outputfolder)
